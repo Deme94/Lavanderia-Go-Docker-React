@@ -1,0 +1,17 @@
+.mycard {
+    margin: 20px;
+    font-size: 40px;
+    text-align: center;
+    border: 4px solid;
+    border-radius: 100px;
+    background-color: #ff5f00;
+}
+
+.mycard:focus {
+    background-color: lightsalmon;
+}
+
+.mycard .photo {
+    height: 400px;
+    width: 400px;
+}
