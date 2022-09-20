@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  postgresdb:
+      image: postgres:latest
+      container_name: postgres_container
+      env_file: .env
+      build:
+        context: ./postgresdb
+        dockerfile: Dockerfile
+      ports:
+        - 2345:5432
+
+  laundry-golang:
+      container_name: golang_container
+      env_file: .env
+      build:
+        context: ./backend
+        dockerfile: Dockerfile
+      ports:
+        - 4000:4000
+      restart: on-failure
+      depends_on:
+        - postgresdb
+
+  laundry-react:
+      container_name: react_container
+      env_file: .env
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      ports:
+        - 80:3000
+      restart: on-failure
+      depends_on:
+        - laundry-golang
+
+volumes:
+  dbdata:
